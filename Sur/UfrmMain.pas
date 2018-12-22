@@ -450,8 +450,8 @@ var
 begin
   str:='';
   comport1.ReadStr(str,count);
-  Str:='0212150001  0.0  0.5  0.8  0.4  2.1  5.3  0.6  0.0  0.0  6.600'+#$D+
-       '0212150002  0.0  0.6  0.8  0.4  2.2  5.3  0.7  0.0  0.0  6.600'+#$D+       '9999999999999.9999.9999.9999.9999.9999.9999.9999.9999.9999.999'+#$D;  if length(memo1.Lines.Text)>=60000 then memo1.Lines.Clear;//memo只能接受64K个字符
+  //Str:='0212150001  0.0  0.5  0.8  0.4  2.1  5.1  0.6  0.0  0.0  6.600'+#$D+
+  //     '0212150002  0.0  0.6  0.8  0.4  2.2  5.3  0.7  0.0  0.0  6.600'+#$D+  //     '9999999999999.9999.9999.9999.9999.9999.9999.9999.9999.9999.999'+#$D;  if length(memo1.Lines.Text)>=60000 then memo1.Lines.Clear;//memo只能接受64K个字符
   memo1.Lines.Add(str);
 
   ls:=TStringList.Create;
@@ -461,8 +461,6 @@ begin
   begin
     ls20:=TStringList.Create;
     k:=ExtractStrings([#$20],[],Pchar(ls[i]),ls20);
-    showmessage(inttostr(k));
-    exit;
     if k<7 then begin ls20.free;continue;end;
     
     SpecNo:=rightstr('0000'+ls20[0],4);
