@@ -447,13 +447,6 @@ var
   SpecNo:string;
   ReceiveItemInfo:OleVariant;
   FInts:OleVariant;
-  
-  PosSampleID,PosAnalyte,PosConc:integer;
-  iSampleID,iAnalyte,iConc:integer;
-  sSampleID,sAnalyte,sConc:string;
-
-  dlttype:string;
-  sValue:string;
 begin
   str:='';
   comport1.ReadStr(str,count);
@@ -468,14 +461,15 @@ begin
   begin
     ls20:=TStringList.Create;
     k:=ExtractStrings([#$20],[],Pchar(ls[i]),ls20);
-    if k<100 then begin ls20.free;continue;end;
+    showmessage(inttostr(k));
+    exit;
+    if k<7 then begin ls20.free;continue;end;
     
     SpecNo:=rightstr('0000'+ls20[0],4);
-    sValue:=ls20[6];
-    ls20.Free;
 
     ReceiveItemInfo:=VarArrayCreate([0,0],varVariant);
-    ReceiveItemInfo[0]:=VarArrayof(['HbA1c',sValue,'','']);
+    ReceiveItemInfo[0]:=VarArrayof(['HbA1c',ls20[6],'','']);
+    ls20.Free;
 
     if bRegister then
     begin
