@@ -82,7 +82,7 @@ var
   ifRecLog:boolean;//是否记录调试日志
   H_DTR_RTS:boolean;//DTR/RTS高电位
 
-  //RFM:STRING;       //返回数据
+  RFM:STRING;       //返回数据
   hnd:integer;
   bRegister:boolean;
 
@@ -152,6 +152,8 @@ var
   ctext        :string;
   reg          :tregistry;
 begin
+  RFM:='';
+  
   ConnectString:=GetConnectString;
   
   UpdateConfig;
@@ -447,6 +449,7 @@ var
   SpecNo:string;
   ReceiveItemInfo:OleVariant;
   FInts:OleVariant;
+  aRFM:STRING;
 begin
   str:='';
   comport1.ReadStr(str,count);
@@ -454,8 +457,15 @@ begin
   //     '0212150002  0.0  0.6  0.8  0.4  2.2  5.3  0.7  0.0  0.0  6.600'+#$D+  //     '9999999999999.9999.9999.9999.9999.9999.9999.9999.9999.9999.999'+#$D;  if length(memo1.Lines.Text)>=60000 then memo1.Lines.Clear;//memo只能接受64K个字符
   memo1.Lines.Add(str);
 
+  RFM:=RFM+STR;
+  
+  if pos(#$D,str)<=0 THEN EXIT;
+
+  aRFM:=RFM;
+  RFM:='';
+  
   ls:=TStringList.Create;
-  ExtractStrings([#$D],[],Pchar(Str),ls);//将每行导入到字符串列表中
+  ExtractStrings([#$D],[],Pchar(aRFM),ls);//将每行导入到字符串列表中
 
   for i :=0 to ls.Count-1 do
   begin
