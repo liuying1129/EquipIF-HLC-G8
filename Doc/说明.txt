@@ -1,9 +1,3 @@
-menu->utility->rs232c->BM(basic mode,不需要握手)
-
-menu->parameter->trans G5/7 mode,选择7（该选项可能需要先password才能看到）
-
-menu->utility->rs232c->AT TRANS：表示检验结果自动传输
-
 联机标识：HbA1c
 
 
